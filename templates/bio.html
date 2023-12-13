@@ -1,0 +1,89 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block bioactive %} active {% endblock bioactive %}
+{% block title %} Bio | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        .shadow-textarea textarea.form-control::placeholder {
+            font-weight: 300;
+        }
+
+        .shadow-textarea textarea.form-control {
+            padding: 10px;
+            line-height: 1.5;
+            border: solid;
+            border-color: cadetblue;
+        }
+    </style>
+    
+    <form action="{% url 'my-profile/bio' pk=user_detail.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="user" value="{{user.first_name}}">
+        <div class="container">
+            <div class="container"><br><br>
+                <table align="center" cellpadding="10" style="width: 800px;">
+                    <tr>
+                        <td style="width: 100px;"></td>
+                        <td style="width: 600px;">
+                            <p><a href="/my-profile" style="text-decoration: none;">
+                                <img src="{% static 'images/previous.png' %}" alt="back" width="20px" height="20px">
+                            </a>Back</p>
+                        </td>
+                        <td style="width: 100px;"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td style="width: 600px;">
+                        <h2 style="text-align: center;font-weight: bold;">What would you like other members to know about you?</h2>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+            </table>
+
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td style="width: 600px;">
+                        <div class="form-group shadow-textarea blue-border">
+                            <textarea class="form-control z-depth-1" id="story" name="bio" cols="60" rows="10" placeholder="Example: I'm a Software Engineer and I love photography." required>{{story_details.story}}</textarea>
+                        </div>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td align="center">
+                        <button class="btn btn-primary" type="submit" style="padding: 10px 30px;font-size: 15px;">Submit</button>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+{% endblock body %}
+
+
+
+

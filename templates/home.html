@@ -1,0 +1,69 @@
+{% extends 'master_home.html' %}
+{% load static %}
+{% block homeactive %} active {% endblock homeactive %}
+{% block title %} Carpooling? | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <img src="{% static 'images/carpool-image.png' %}" alt="carpool-image" width="100%" height="450px">
+
+    <div class="container">
+        <table align="center" cellpadding="20" style="width: 90%;">
+            &nbsp;
+            &nbsp;
+            <tr>
+                <td colspan="3"><h2 style="font-weight: bold;">Go literally anywhere. From anywhere.</h2></td>
+            </tr>
+
+            <tr>
+                <td style="width: 600px;">
+                    <label style="font-weight: bold;">Smart</label>
+                    <p>With access to millions of journeys, you can quickly find people nearby travelling your way.</p>
+                </td>
+                <td style="width: 600px;">
+                    <label style="font-weight: bold;">Simple</label>
+                    <p>Enter your exact address to find the perfect ride. Choose who you’d like to travel with. And book!</p>
+                </td>
+                <td style="width: 600px;">
+                    <label style="font-weight: bold;">Seamless</label>
+                    <p>Get to your exact destination, without the hassle. No queues. No waiting around.</p>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+
+            <tr>
+                <td colspan="3"><h2 style="font-weight: bold;">3 things you'll love about LTSRide</h2></td>
+            </tr>
+
+            <tr>
+                <td style="width: 600px;">
+                    <img src="{% static 'images/signs.png' %}" alt="signs" width="40px" height="40px"><br>
+                    <label style="font-weight: bold;">Choice.</label>
+                    <p>We go everywhere. Literally thousands of destinations. No station required.</p>
+                </td>
+                <td style="width: 600px;">
+                    <img src="{% static 'images/id-card.png' %}" alt="signs" width="40px" height="40px"><br>
+                    <label style="font-weight: bold;">Carpool with confidence</label>
+                    <p>Government ID verification adds another level of security to member profiles.</p>
+                </td>
+                <td style="width: 600px;">
+                    <img src="{% static 'images/location.png' %}" alt="signs" width="40px" height="40px"><br>
+                    <label style="font-weight: bold;">Get going faster</label>
+                    <p>No need to travel across town, catch a ride leaving near you.</p>
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan="3"></td>
+            </tr>
+        </table>
+    </div>
+        
+{% endblock body %}
+
+
+
+

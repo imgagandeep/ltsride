@@ -1,0 +1,44 @@
+{% extends 'master_home.html' %}
+{% load static %}
+{% block aboutactive %} active {% endblock aboutactive %}
+{% block title %} About Us | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <div class="container">
+        <h2 class="text-center my-3 py-3" style="font-weight: bold;">About Us</h2>
+    </div>
+
+    <div class="container">
+        <h3><label for="text" style="font-weight: bold;">LTSRide at a glance</label></h3>
+        <p style="color: grey;"><h4>
+            LTSRide is a <b> trusted community </b> marketplace that connects drivers with empty seats to co-travellers looking for a ride.
+            Over 12 million people use LTSRide every quarter creating an entirely new, <b> people-powered network. </b>
+            With a dedicated customer service, a state of the art web platform, and a fast-growing community of users, LTSRide is making travel social, money-saving and more efficient for millions of members.
+        </h4></p>
+    </div>
+    
+    <div class="container">
+        <h3><label for="text" style="font-weight: bold;">How we do it</label></h3>
+        <p style="color: grey;"><h4>
+            We help people everywhere get to their destination in the smoothest way possible, by combining all options for real-time trip planning.
+            We provide governments, cities, transit agencies/operators and all organizations with mobility challenges, with AI-powered mobility solutions covering planning, operations, and analytics, with proven value in reducing congestion, growing ridership, and increasing efficiency and asset utilization – ultimately shifting car drivers to consume public and shared mobility.
+            We create technology for people around the world to impact their local community.
+        </h4></p>
+    </div>
+
+{% endblock body %}
+
+
+
+

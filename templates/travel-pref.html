@@ -1,0 +1,144 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block travelprefactive %} active {% endblock travelprefactive %}
+{% block title %} Travel Preferences | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style2.css' %}">
+
+    <div class="contact-back flex items-center">
+        <form action="{% url 'dashboard/travel-pref' pk=user_detail.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{user.first_name}}">
+            <section style="min-height: 100vh;">
+                <div class="container" style="width: 500px;">
+                    <h2 class="text-center my-3 py-3" style="font-weight: bold;">Travel preferences</h2>
+                    <div class="form-group">
+                        <label for="chattiness" class="form-label">Chattiness</label>
+                        <select class="form-select form-control" aria-label="Default select example" name="chattiness" required>
+                            {% if travel_pref_detail.chattiness == "I'm a chatterbox!" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm a chatterbox!" selected>I'm a chatterbox!</option>
+                                <option value="I'm chatty when I feel comfortable">I'm chatty when I feel comfortable</option>
+                                <option value="I'm the quiet type">I'm the quiet type</option>
+                            {% elif travel_pref_detail.chattiness == "I'm chatty when I feel comfortable" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm a chatterbox!">I'm a chatterbox!</option>
+                                <option value="I'm chatty when I feel comfortable" selected>I'm chatty when I feel comfortable</option>
+                                <option value="I'm the quiet type">I'm the quiet type</option>
+                            {% elif travel_pref_detail.chattiness == "I'm the quiet type" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm a chatterbox!">I'm a chatterbox!</option>
+                                <option value="I'm chatty when I feel comfortable">I'm chatty when I feel comfortable</option>
+                                <option value="I'm the quiet type" selected>I'm the quiet type</option>
+                            {% else %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm a chatterbox!">I'm a chatterbox!</option>
+                                <option value="I'm chatty when I feel comfortable">I'm chatty when I feel comfortable</option>
+                                <option value="I'm the quiet type">I'm the quiet type</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="music" class="form-label">Music</label>
+                        <select class="form-select form-control" aria-label="Default select example" name="music" required>
+                        {% if travel_pref_detail.music == "It's all about the playlist!" %}
+                            <option value="">- Select your choice..</option>
+                            <option value="It's all about the playlist!" selected>It's all about the playlist!</option>
+                            <option value="I'll jam depending on the mood">I'll jam depending on the mood</option>
+                            <option value="Silence is golden">Silence is golden</option>
+                        {% elif travel_pref_detail.music == "I'll jam depending on the mood" %}
+                            <option value="">- Select your choice..</option>
+                            <option value="It's all about the playlist!">It's all about the playlist!</option>
+                            <option value="I'll jam depending on the mood" selected>I'll jam depending on the mood</option>
+                            <option value="Silence is golden">Silence is golden</option>
+                        {% elif travel_pref_detail.music == "Silence is golden" %}
+                            <option value="">- Select your choice..</option>
+                            <option value="It's all about the playlist!">It's all about the playlist!</option>
+                            <option value="I'll jam depending on the mood">I'll jam depending on the mood</option>
+                            <option value="Silence is golden" selected>Silence is golden</option>
+                        {% else %}
+                            <option value="">- Select your choice..</option>
+                            <option value="It's all about the playlist!">It's all about the playlist!</option>
+                            <option value="I'll jam depending on the mood">I'll jam depending on the mood</option>
+                            <option value="Silence is golden">Silence is golden</option>
+                        {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="smoking" class="form-label">Smoking</label>
+                        <select class="form-select form-control" aria-label="Default select example" name="smoking" required>
+                            {% if travel_pref_detail.smoking == "I'm fine with smoking" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm fine with smoking" selected>I'm fine with smoking</option>
+                                <option value="Cigarette breaks outside the car are ok">Cigarette breaks outside the car are ok</option>
+                                <option value="Please, no smoking in the car">Please, no smoking in the car</option>
+                            {% elif travel_pref_detail.smoking == "Cigarette breaks outside the car are ok" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm fine with smoking">I'm fine with smoking</option>
+                                <option value="Cigarette breaks outside the car are ok" selected>Cigarette breaks outside the car are ok</option>
+                                <option value="Please, no smoking in the car">Please, no smoking in the car</option>
+                            {% elif travel_pref_detail.smoking == "Please, no smoking in the car" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm fine with smoking">I'm fine with smoking</option>
+                                <option value="Cigarette breaks outside the car are ok">Cigarette breaks outside the car are ok</option>
+                                <option value="Please, no smoking in the car" selected>Please, no smoking in the car</option>
+                            {% else %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I'm fine with smoking">I'm fine with smoking</option>
+                                <option value="Cigarette breaks outside the car are ok">Cigarette breaks outside the car are ok</option>
+                                <option value="Please, no smoking in the car">Please, no smoking in the car</option>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pets" class="form-label">Pets</label>
+                        <select class="form-select form-control" aria-label="Default select example" name="pets" required>
+                            {% if travel_pref_detail.pets == "I love pets. Woof!" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I love pets. Woof!" selected>I love pets. Woof!</option>
+                                <option value="I'll travel with pets depending on the animal">I'll travel with pets depending on the animal</option>
+                                <option value="Sorry, not a pet person">Sorry, not a pet person</option>
+                            {% elif travel_pref_detail.pets == "I'll travel with pets depending on the animal" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I love pets. Woof!">I love pets. Woof!</option>
+                                <option value="I'll travel with pets depending on the animal" selected>I'll travel with pets depending on the animal</option>
+                                <option value="Sorry, not a pet person">Sorry, not a pet person</option>
+                            {% elif travel_pref_detail.pets == "Sorry, not a pet person" %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I love pets. Woof!">I love pets. Woof!</option>
+                                <option value="I'll travel with pets depending on the animal">I'll travel with pets depending on the animal</option>
+                                <option value="Sorry, not a pet person" selected>Sorry, not a pet person</option>
+                            {% else %}
+                                <option value="">- Select your choice..</option>
+                                <option value="I love pets. Woof!">I love pets. Woof!</option>
+                                <option value="I'll travel with pets depending on the animal">I'll travel with pets depending on the animal</option>
+                                <option value="Sorry, not a pet person">Sorry, not a pet person</option>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Save Preferences</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+{% endblock body %}
+
+

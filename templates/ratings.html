@@ -1,0 +1,144 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block ratingsactive %} active {% endblock ratingsactive %}
+{% block title %} Ratings | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        .shadow-textarea textarea.form-control {
+            padding: 10px;
+            line-height: 1.5;
+            border: solid;
+            border-color: cadetblue;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/star-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rating-style.css' %}">
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
+
+    <div class="container"><br>
+        <table align="center" style="width: 900px;table-layout: fixed;">
+            <tr>
+                <td style="width: 100px;"></td>
+                <td colspan="2" style="text-align: center;width: 700px;">
+                    <h2 style="font-weight: bold;color: cadetblue;">{{username}}</h2><br><br>
+                </td>
+                <td style="width: 100px;"></td>
+            </tr>
+
+            <tr>
+                <td style="width: 100px;"></td>
+                <td style="width: 400px;">
+                    <h3 style="text-align: center;font-weight: bold;vertical-align: top;">Travel Preferences</h3>
+                </td>
+
+                <td style="width: 400px;">
+                    <h3 style="text-align: center;font-weight: bold;vertical-align: text-top;">Bio</h3>
+                </td>
+                <td style="width: 100px;"></td>
+            </tr>
+
+            <tr>
+                <td style="width: 100px;"></td>
+                <td style="width: 400px;">
+                    {% if detail %}
+                        <label>→ {{detail.chattiness}}</label><br>
+                        <label>→ {{detail.music}}</label><br>
+                        <label>→ {{detail.smoking}}</label><br>
+                        <label>→ {{detail.pets}}</label><br>
+                    {% else %}
+                        <label>Travel preferences is not set.</label>
+                    {% endif %}
+                </td>
+
+                <td style="width: 400px;">
+                    <div class="form-group wrap" style="font-size: 18px;font-weight: bold;">
+                        <wbr for="comment">
+                            {% if bio.story %}
+                                {{bio.story}}
+                            {% else %}
+                                Bio is not yet.
+                            {% endif %}
+                        </label>
+                    </div>
+                </td>
+
+                <td style="width: 100px;"></td>
+            </tr>
+        </table>
+        <hr style="border-top: 4px solid black">
+    </div>
+
+    <form action="{% url 'ratings' username %}" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <h1 style="font-weight: bold;text-align: center;">Ratings</h1>
+            <input type="hidden" name="user" value="{{user.first_name}}">
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 100px;"><br>
+                        {% if image.user_image %}
+                            <img src="/media/{{image.user_image}}" alt="User Image" width="300" height="300">
+                        {% else %}
+                            <img src="{% static 'images/user-image.png' %}" alt="User Image" width="300" height="300">
+                        {% endif %}<br><br>
+
+                        <h2 style="font-weight: bold;text-align: left;color: rgb(5, 71, 82);">
+                            {{username}}
+                        </h2>
+                    </td>
+
+                    <td style="width: 700px;vertical-align: top;">
+                        <div class="stars">
+                            <input type="radio" id="star1" name="rating" value="1" required /><input type="radio" id="star2" name="rating" value="2" /><input type="radio" id="star3" name="rating" value="3" /><input type="radio" id="star4" name="rating" value="4" /><input type="radio" id="star5" name="rating" value="5" />
+                            <label for="star1">1 star</label><label for="star2">2 stars</label><label for="star3">3 stars</label><label for="star4">4 stars</label><label for="star5">5 stars</label>
+                        </div><br>
+
+                        <div class="shadow-textarea blue-border" style="width: 520px;height: 100px;" required>
+                            <textarea class="form-control z-depth-1" id="comment" name="comment" cols="60" rows="10" required></textarea>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="submit" class="btn btn-primary" style="padding: 10px 30px;font-size: 15px;">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <br><br>
+    
+    <div class="container" style="float: center;">
+        {% if rating_detail %}
+            {% for rating in rating_detail %}
+                <section style="min-height: 20vh;">
+                    <div class="container" style="width:600px;background-color: white;box-shadow: 0px 0px 20px #00000020;padding: 20px;border-radius: 8px;">
+                        <label for="username" style="font-size: 24px;font-weight: bold;text-decoration: none;color: cadetblue;">{{rating.user}}</label><br>
+                        <label style="font-size: 24px;"> {{rating.rating}} <i class="fas fa-star"></i></label>
+                        <div class="form-group wrap">
+                            <wbr for="comment">{{rating.comment}}</label>
+                        </div><br><br>
+                        <label for="submit_by">{{rating.submit_by}}</label>
+                    </div><br>
+                </section><br><br>
+            {% endfor %}
+        {% else %}
+            <section style="min-height: 20vh;">
+                <div class="container" style="width:600px;background-color: white;box-shadow: 0px 0px 20px #00000020;padding: 20px;border-radius: 8px;">
+                    <div class="form-group">
+                        <h2 style="font-weight: bold;text-align: center;">Rating not yet.</h2>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    </div>
+
+{% endblock body %}
+
+
+
+

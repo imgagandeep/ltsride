@@ -3,6 +3,19 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+**/migrations/**
+!dashboard/migrations/__init__.py
+!findride/migrations/__init__.py
+!home/migrations/__init__.py
+!inbox/migrations/__init__.py
+!notifications/migrations/__init__.py
+!offerride/migrations/__init__.py
+!payments/migrations/__init__.py
+!ratings/migrations/__init__.py
+!register/migrations/__init__.py
+!rides/migrations/__init__.py
+!userprofile/migrations/__init__.py
+
 # C extensions
 *.so
 

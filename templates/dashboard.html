@@ -1,0 +1,59 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block dashboardactive %} active {% endblock dashboardactive %}
+{% block title %} Dashboard | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <div class="container">
+        &nbsp;
+        &nbsp;
+        <table align="center" style="width: 100%;">
+            <td style="width: 10%;"></td>
+
+            <td style="width: 70%;">
+                <h2 style="font-weight: bold;">Dashboard</h2>
+                <hr style="border-top: 4px solid black">
+                <table align="center">
+                    <tr>
+                        <td class="align-top" style="width: 400px;">
+                            <dl style="margin-top: 20px;">
+                                <dt>Car share preferences</dt>
+                                <dd>
+                                    {% if travel_pref_detail is None %}
+                                        <a href="{% url 'dashboard/travel-pref' pk=current_user.pk %}" style="text-decoration: none;color: black">→ Add your car share preferences</a>
+                                    {% else %}
+                                        <a href="{% url 'dashboard/travel-pref' pk=current_user.pk %}" style="text-decoration: none;color: black">→ Edit your car share preferences</a>
+                                    {% endif %}
+                                </dd>
+                                <dt>Member active</dt>
+                                <dd>
+                                    {% if user.is_authenticated %}
+                                        Member since: {{user.date_joined | date}}
+                                    {% endif %}
+                                </dd>
+                                <dt>Car</dt>
+                                <dd>
+                                    {% if car_details is None %}
+                                        <a href="{% url 'dashboard/add-car' pk=current_user.pk %}" style="text-decoration: none;color: black">→ Add your car</a>
+                                    {% else %}
+                                        <a href="{% url 'dashboard/add-car' pk=current_user.pk %}" style="text-decoration: none;color: black">→ Edit your car</a>
+                                    {% endif %}
+                                </dd>
+                            </dl>
+                        </td>
+                        
+                        <td class="align-top" style="width: 800px;">
+                            <img src="{% static 'images/dashboard-image.png' %}" alt="Dashboard Image" style="width: 100%;height: 450px;">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            
+            <td style="width: 10%;"></td>
+        </table>
+    </div>
+
+{% endblock body %}
+
+

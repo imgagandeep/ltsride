@@ -1,0 +1,42 @@
+section {
+    min-height: 35vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.form-group {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.form-group input {
+    width: 100%;
+    border: 1.5px solid rgba(128, 128, 128, 0.418);
+    padding: 5px;
+    font-size: 18px;
+    margin-top: 5px;
+    border-radius: 4px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding: 10px;
+    line-height: 1.5;
+    border: solid;
+    border-color: cadetblue;
+}
+
+.wrap { 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: -moz-pre-wrap; /* Firefox */
+}

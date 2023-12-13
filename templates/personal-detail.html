@@ -1,0 +1,159 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block personaldetactive %} active {% endblock personaldetactive %}
+{% block title %} Personal Details | LTSRide {% endblock title %}
+
+{% block body %}
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <form action="{% url 'my-profile/personal-detail' pk=user_detail.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container"><br><br>
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td style="width: 600px;">
+                        <p><a href="/my-profile" style="text-decoration: none;">
+                            <img src="{% static 'images/previous.png' %}" alt="back" width="20px" height="20px">
+                        </a>Back</p>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2 class="text-center my-3 py-3" style="font-weight: bold">Personal Details</h2>
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td colspan="2" style="width: 600px;text-align: center;">
+                        <div class="image-upload">
+                            <label for="file-input">
+                                {% if other_detail.user_image %}
+                                    <img src="/media/{{other_detail.user_image}}" alt="User Image" style="border-radius: 50%;cursor: pointer;" width="150" height="150">
+                                {% else %}
+                                    <img src="{% static 'images/user-image.png' %}" alt="User Image" style="border-radius: 50%;cursor: pointer;" width="150" height="150">
+                                {% endif %}
+                            </label>
+                            <input type="file" id="file-input" name="user_image" style="cursor: pointer;display: none;" accept="image/png,image/gif,image/jpeg">
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label" style="font-size: 18px;font-weight: bold;">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{user_detail.first_name}}" placeholder="First name" required>
+                        </div>
+                    </td>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label" style="font-size: 18px;font-weight: bold;">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{user_detail.last_name}}" placeholder="Last name" required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <label for="gender" class="form-label" style="font-size: 18px;font-weight: bold;">Gender</label>
+                        <div class="mb-3">
+                            {% if other_detail.gender == "male" %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked disabled>
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                            {% else %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="male" value="male" disabled>
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                            {% endif %}
+
+                            {% if other_detail.gender == "female" %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" checked disabled>
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            {% else %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="female" value="female" disabled>
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            {% endif %}
+
+                            {% if other_detail.gender == "custom" %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="custom" value="custom" checked disabled>
+                                    <label class="form-check-label" for="custom">Custom</label>
+                                </div>
+                            {% else %}
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="custom" value="custom" disabled>
+                                    <label class="form-check-label" for="custom">Custom</label>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </td>
+
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="dob" class="form-label" style="font-size: 18px;font-weight: bold;">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="date_of_birth" value="{{other_detail.date_of_birth | date:'Y-m-d'}}" placeholder="mm/dd/yyyy" readonly required>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="aadhar_number" class="form-label" style="font-size: 18px;font-weight: bold;">Aadhar Number</label>
+                            <input type="tel" class="form-control" id="aadhar_number" name="aadhar_number" value="{{other_detail.aadhar_number}}" readonly required>
+                        </div>
+                    </td>
+                    <td style="width: 400px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="email" class="form-label" style="font-size: 18px;font-weight: bold;">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{user_detail.email}}" readonly required>
+                        </div>
+                    </td>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="number" class="form-label" style="font-size: 18px;font-weight: bold;">Mobile Number</label>
+                            <input type="tel" class="form-control" id="number" name="mobile_number" value="{{other_detail.mobile_number}}" readonly required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;" align="center" colspan="2">
+                        <button class="btn btn-primary" type="submit" style="padding: 10px 30px;font-size: 15px;">Save</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <script src="{% static 'js/only-number.js' %}"></script>
+
+{% endblock body %}
+

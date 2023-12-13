@@ -1,0 +1,39 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block govtidactive %} active {% endblock govtidactive %}
+{% block title %} Verify Govt. ID | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <div class="container">
+        &nbsp;
+        &nbsp;
+        <h2 style="font-weight: bold;text-align: center;">Let's verify your ID</h2><br>
+        &nbsp;
+        &nbsp;
+        <h3 style="text-align: center;">Select the type of document you would like to upload</h3>
+        <table align="center" cellpadding="10" style="width: 800px;">
+            <tr>
+                <td style="width: 100px;"></td>
+                <td style="width: 700px;">
+                    <dl>
+                        <dd><a href="{% url 'my-profile/govt-id/passport' pk=current_user.pk %}" style="text-decoration: none;color: black;font-weight: bold;font-size: 20px;">→ Passport</a></dd>
+                        <dd><a href="{% url 'my-profile/govt-id/aadhar-card' pk=current_user.pk %}" style="text-decoration: none;color: black;font-weight: bold;font-size: 20px;">→ Aadhar card</a></dd>
+                    </dl>
+                </td>
+                <td style="width: 100px;"></td>
+            </tr>
+        </table>
+    </div>
+
+{% endblock body %}

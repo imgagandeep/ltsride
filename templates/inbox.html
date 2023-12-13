@@ -1,0 +1,54 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block inboxactive %} active {% endblock inboxactive %}
+{% block title %} Inbox | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    
+    <div class="container">
+        <h1 style="margin-top: 30px;"><font size="+3" style="color: grey;">Pick a user and start chatting!</font></h1>
+        <hr style="border-top: 4px solid black">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="user-list" class="list-group">
+                    <a class="list-group-item" style="background-color: #eee;color: black;font-size: 20px;font-weight: bold;">Users
+                        {# Users go here #}
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header" style="font-size: 20px;font-weight: bold;">Chat</div>
+                    <div>
+                        <ul id="messages" class="messages">
+                            {# Messages go here #}
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <input id="chat-input" type="text" class="form-control input" placeholder="Type your message here ..." maxlength="500">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary btn" id="btn-send">Send</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+    </div>
+
+    <script>
+        let sessionKey = '{{ request.session.session_key }}';
+        let currentUser = '{{ request.user.username }}';
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+        
+{% endblock body %}
+
+
+
+

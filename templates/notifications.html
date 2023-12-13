@@ -1,0 +1,145 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block notificationsactive %} active {% endblock notificationsactive %}
+{% block title %} Notifications | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    
+    <div class="container">
+        &nbsp;&nbsp;
+        <h2 style="font-weight: bold;">Notifications & Communications</h2>
+        <hr style="border-top: 4px solid black">
+    </div><br>
+    
+    <form action="/notifications" method="POST">
+        {% csrf_token %}
+        <!-- Email -->
+        <div class="container">
+            <h3 style="text-align: center;font-weight: bold;">Email</h3>
+            <table  align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 50px;"></td>
+                    <td style="width: 400px;"></td>
+                    <td style="width: 400px;"></td>
+                    <td style="width: 50px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 50px;"></td>    
+                    <td colspan="2">
+                        {% if user.is_authenticated %}
+                            <b>{{user.email}}</b>
+                        {% else %}
+                            <label for="user-email">email@example.com</label>
+                        {% endif %}
+                        <hr>
+                    </td>
+                    <td style="width: 50px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 50px;"></td>
+                    <td style="width: 300px;">
+                        <label class="form-check-label" for="news-check" style="font-weight: bold;font-size: 18px;">News, deals and free stuff</label><br>
+                        <label class="form-check-label" for="msgs-check" style="font-weight: bold;font-size: 18px;">Messages</label><br>
+                        <label class="form-check-label" for="rides-check" style="font-weight: bold;font-size: 18px;">Publising & editing rides</label><br>
+                    </td>
+                    <td style="width: 300px;">
+                    {% if notifications_detail %}
+                        {% for notify in notifications_detail %}
+                            <div align="right">
+                                {% if notify.news_stuff == "News, deals and free stuff" %}
+                                    <input class="form-check-input" type="checkbox" id="news_check" name="news_check" value="News, deals and free stuff" checked>
+                                {% else %}
+                                    <input class="form-check-input" type="checkbox" id="news_check" name="news_check" value="News, deals and free stuff">
+                                {% endif %}
+                            </div>
+
+                            <div align="right">
+                                {% if notify.messages == "Messages" %}
+                                    <input class="form-check-input" type="checkbox" id="msgs_check" name="msgs_check" value="Messages" checked>
+                                {% else %}
+                                    <input class="form-check-input" type="checkbox" id="msgs_check" name="msgs_check" value="Messages">
+                                {% endif %}
+                            </div>
+
+                            <div align="right">
+                                {% if notify.publishing_rides == "Publishing & editing rides" %}
+                                    <input class="form-check-input" type="checkbox" id="rides_check" name="rides_check" value="Publishing & editing rides" checked>
+                                {% else %}
+                                    <input class="form-check-input" type="checkbox" id="rides_check" name="rides_check" value="Publishing & editing rides">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div align="right">
+                            <input class="form-check-input" type="checkbox" id="news_check" name="news_check" value="News, deals and free stuff">
+                        </div>
+                        <div align="right">
+                            <input class="form-check-input" type="checkbox" id="msgs_check" name="msgs_check" value="Messages">
+                        </div>
+                        <div align="right">
+                            <input class="form-check-input" type="checkbox" id="rides_check" name="rides_check" value="Publishing & editing rides">
+                        </div>
+                    {% endif %}
+                    </td>
+
+                    <td style="width: 50px;"></td>
+                </tr>
+            </table>
+        </div><br><br>
+
+        <!-- SMS -->
+        <div class="container">
+            <h3 style="text-align: center;font-weight: bold;">SMS</h3>
+            <table  align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 50px;"></td>
+                    <td style="width: 400px;"></td>
+                    <td style="width: 400px;"></td>
+                    <td style="width: 50px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 50px;"></td>    
+                    <td colspan="2">
+                        {% if user.is_authenticated %}
+                            <label for="user-email"><b>+91 {{other_detail.mobile_number}}</b></label>
+                        {% else %}
+                            <label for="user-email">+91 xxxxxxxxxx</label>
+                        {% endif %}
+                        <hr>
+                    </td>
+                    <td style="width: 50px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 50px;"></td>
+                    <td colspan="2">
+                        <p style="font-size: 18px;">We only send messages with info you need. That means bookings and cancellations.</p>
+                    </td>
+                    <td style="width: 50px;"></td>
+                </tr>
+            </table>
+        </div><br><br>
+
+        <div class="form-group" align="center">
+            <button type="submit" class="btn btn-primary" style="padding: 10px 30px;font-size: 15px;">Save</button>
+        </div><br><br>
+    </form>
+
+{% endblock body %}
+
+
+
+

@@ -1,0 +1,54 @@
+{% extends 'master_home.html' %}
+{% load static %}
+{% block otpactive %} active {% endblock otpactive %}
+{% block title %} OTP | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style2.css' %}">
+
+    <div class="contact-back flex items-center">
+        <form action="/register/otp" method="POST">
+            {% csrf_token %}
+            <section style="min-height: 80vh;">
+                <div class="container" style="width: 500px;">
+                    <h2 class="text-center my-3 py-3" style="font-weight: bold;">Enter OTP. Which you have received on email<!-- and mobile -->.</h2>
+                    <div class="form-group">
+                        {% for message in messages %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 1px;"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="hidden" name="user" value="{{user.username}}">
+                            <label for="emailotp" class="form-label">OTP sent on Email</label>
+                            <input type="tel" class="form-control" id="emailotp" onkeypress="return onlyNumberKey(event)" maxlength="6" name = "emailotp" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+    <script src="{% static 'js/only-number.js' %}"></script>
+
+{% endblock body %}
+
+
+
+

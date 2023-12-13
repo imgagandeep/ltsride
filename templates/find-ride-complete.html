@@ -1,0 +1,83 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block findrideactive %} active {% endblock findrideactive %}
+{% block title %} Find Ride | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/popup.css' %}">
+
+    <form action="/find-ride-complete" method="POST">
+        {% csrf_token %}
+        {% for ride in ride_detail %}
+            <section style="min-height: 65vh;">
+                <div class="container">
+                    <h2 style="font-weight: bold;text-align: center;">Rides</h2>
+                    <div class="form-group">
+                        <label  for="source" style="font-size: 18px;font-weight: bold;">{{ride.source}}</label><br>
+                        <input type="hidden" name="source" value="{{ride.source}}">
+                        <label style="font-size: 18px;font-weight: bold;">↓</label><br>
+                        <label for="destination"  style="font-size: 18px;font-weight: bold;">{{ride.destination}}</label><br>
+                        <input type="hidden" name="destination" value="{{ride.destination}}">
+                    </div>
+
+                    <div class="form-group">
+                        <table>
+                            <tr>
+                                <td style="width: 300px;padding: 10px 0;">
+                                    <label for="seats">Available Seats: {{ride.seats}}</label>
+                                    <input type="hidden" name="seats" value="{{ride.seats}}">
+                                </td>
+                                <td style="width: 300px;padding: 10px 0;">
+                                    <label for="price">Price: ₹{{ride.price}}</label>
+                                    <input type="hidden" name="price" value="{{ride.price}}">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <table>
+                            <tr>
+                                <td style="width: 300px;padding: 10px 0;">
+                                    <label for="date">Date: {{ride.travel_date}}</label>
+                                    <input type="hidden" name="date" value="{{ride.travel_date}}">
+                                </td>
+                                <td style="width: 300px;padding: 10px 0;">
+                                    <label for="time">Time: {{ride.travel_time}}</label>
+                                    <input type="hidden" name="time" value="{{ride.travel_time}}">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="username">
+                            <a href="{% url 'reviews' ride.user %}" target="_blank" style="font-size: 24px;font-weight: bold;text-decoration: none;color: cadetblue;cursor: pointer;">{{ride.user}}</a>
+                        </p>
+
+                        {% if ride.seats == 0 %}
+                            <a class="btn"><label for="payement">All seats are booked!</label></a>
+                        {% else %}
+                            <a class="btn btn-primary" href="{% url 'save-ride' ride.id %}">Save</a>
+                        {% endif %}
+                    </div>
+                </div><br>
+            </section>
+        {% empty %}
+            <section>
+                <div class="container">
+                    <div class="form-group">
+                        <h2 style="font-weight: bold;text-align: center;">Ride not Found!</h2>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+    </form><br><br>
+
+{% endblock body %}
+
+
+
+

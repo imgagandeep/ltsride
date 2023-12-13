@@ -1,0 +1,264 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block yourridesactive %} active {% endblock yourridesactive %}
+{% block title %} Your rides | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/popup.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
+
+    <div class="container-fluid">
+        &nbsp;
+        <h1 style="font-weight: bold;">Your Rides</h1>
+        <hr style="border-top: 4px solid black">
+        <form action="/your-rides" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{user.first_name}}">
+            {% for ride in ride_detail %}
+                <section style="min-height: 55vh;">
+                    <div class="container" style="width: 700px;">
+                        <div class="form-group">
+                            <label for="source">{{ride.source}}</label><br>
+                            <label>↓</label><br>
+                            <label for="destination">{{ride.destination}}</label><br>
+                        </div>
+
+                        <div class="form-group">
+                            <table>
+                                <tr>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label>Seats: {{ride.seats}}</label>
+                                    </td>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label>Price: ₹{{ride.price}}</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <table>
+                                <tr>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label for="date">Date: {{ride.travel_date}}</label>
+                                    </td>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label for="time">Time: {{ride.travel_time}}</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="username">
+                                <a href="{% url 'reviews' ride.user %}" target="_blank" style="font-size: 24px;font-weight: bold;text-decoration: none;color: cadetblue;cursor: pointer;">{{ride.user}}</a>
+                                <!-- <div class="overlay" id="{{ride.id}}">
+                                    <div class="popup">
+                                        <a class="close" href="#close">&times;</a>
+                                        <h3 style="font-weight: bold;">{{ride.user}}</h3><br><br>
+                                        <div class="content">
+                                            <h3>Travel Preferences</h3>
+                                            {% if travel_pref_detail %}
+                                                <label>→ {{travel_pref_detail.chattiness}}</label><br>
+                                                <label>→ {{travel_pref_detail.music}}</label><br>
+                                                <label>→ {{travel_pref_detail.smoking}}</label><br>
+                                                <label>→ {{travel_pref_detail.pets}}</label><br>
+                                            {% else %}
+                                                <label>Travel preferences is not set.</label>
+                                            {% endif %}<br><br>
+                                            <h3>Bio</h3>
+                                            <label>
+                                                {% if bio_detail.story %}
+                                                    {{bio_detail.story}}
+                                                {% else %}
+                                                    Bio is not yet.
+                                                {% endif %}
+                                            </label><br><br>
+                                            <label style="float: left;"><a href="{% url 'reviews' ride.id %}" style="text-decoration: none;color: cadetblue;">Reviews</a></label>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            {% if today_date >= ride.travel_date %}
+                            {% else %}
+                                <a class="btn btn-danger" href="{% url 'delete-ride' ride.id %}">Cancel</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+
+            {% for rides_detail in rides %}
+                <section style="min-height: 55vh;">
+                    <div class="container" style="width: 700px;">
+                        <div class="form-group">
+                            <label for="source">{{rides_detail.source}}</label><br>
+                            <label for="source">↓</label><br>
+                            <label for="destination">{{rides_detail.destination}}</label><br>
+                        </div>
+
+                        <div class="form-group">
+                            <table>
+                                <tr>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label>Seats: {{rides_detail.seats}}</label>
+                                    </td>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label>Price: ₹{{rides_detail.price}}</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <table>
+                                <tr>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label for="date">Date: {{rides_detail.travel_date}}</label>
+                                    </td>
+                                    <td style="width: 300px;padding: 10px 0;">
+                                        <label for="time">Time: {{rides_detail.travel_time}}</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="form-group">
+                            <p class="username">
+                                <a href="{% url 'ratings' rides_detail.travel_mate %}" target="_blank" style="font-size: 24px;font-weight: bold;text-decoration: none;color: cadetblue;cursor: pointer;">{{rides_detail.travel_mate}}</a>
+
+                                <!-- Popup -->
+                                <!-- <div class="overlay" id="{{rides_detail.id}}">
+                                    <div class="popup">
+                                        <a class="close" href="#close">&times;</a>
+                                        <h3 style="font-weight: bold;">{{rides_detail.travel_mate}}</h3><br><br>
+                                        <div class="content">
+                                            <h3>Travel Preferences</h3>
+                                            {% if pref_detail %}
+                                                <label>→ {{pref_detail.chattiness}}</label><br>
+                                                <label>→ {{pref_detail.music}}</label><br>
+                                                <label>→ {{pref_detail.smoking}}</label><br>
+                                                <label>→ {{pref_detail.pets}}</label><br>
+                                            {% else %}
+                                                <label>Travel preferences is not set.</label>
+                                            {% endif %}<br><br>
+                                            <h3>Bio</h3>
+                                            <label>
+                                                {% if ext_bio.story %}
+                                                {{ext_bio.story}}
+                                                {% else %}
+                                                Bio is not yet.
+                                                {% endif %}
+                                            </label><br><br>{{rides_detail.id}}
+                                            <label style="float: left;"><a href="{% url 'ratings' rides_detail.id %}" style="text-decoration: none;color: cadetblue;">Rating</a></label>
+                                            <label style="float: right;">Sart with Chat click on icon <a href="/inbox"><i class="fas fa-comment"></i></a></label>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!-- Modal -->
+                                <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">{{rides_detail.travel_mate}}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h3>Travel Preferences</h3>
+                                            {% if pref_detail %}
+                                                <label>→ {{pref_detail.chattiness}}</label><br>
+                                                <label>→ {{pref_detail.music}}</label><br>
+                                                <label>→ {{pref_detail.smoking}}</label><br>
+                                                <label>→ {{pref_detail.pets}}</label><br>
+                                            {% else %}
+                                                <label>Travel preferences is not set.</label>
+                                            {% endif %}
+                                            <hr>
+                                            <h3>Bio</h3>
+                                            <label>
+                                                {% if ext_bio.story %}
+                                                {{ext_bio.story}}
+                                                {% else %}
+                                                Bio is not yet.
+                                                {% endif %}
+                                            </label>
+                                        </div>{{rides_detail.id}}
+                                        
+                                        <div class="modal-footer">
+                                            <label style="float: left;"><a href="{% url 'ratings' rides_detail.id %}" style="text-decoration: none;color: cadetblue;">Rating</a></label>
+                                            <label style="float: right;">Sart with Chat click on icon <a href="/inbox"><i class="fas fa-comment"></i></a></label>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            {% if today_date >= rides_detail.travel_date %}
+                                <!-- Blank -->
+                            {% else %}
+                                <a class="btn btn-danger" href="{% url 'delete-find-ride' rides_detail.id %}" style="margin-left: 2.5rem;">Cancel</a>
+                            {% endif %}
+                            
+                            {% if rides_detail.id in orders %}
+                                <a class="btn"><label for="payement">Payment: SUCCESS</label></a>
+                            {% else %}
+                                <a class="btn btn-primary" href="#{% url 'ride-payment' rides_detail.id %}">Complete</a>
+                            {% endif %}
+                            
+                            <div class="overlay" id="{% url 'ride-payment' rides_detail.id %}">
+                                <div class="popup">
+                                    <a class="close" href="#close">&times;</a>
+                                    <h3 style="font-weight: bold;">{{rides_detail.travel_mate}}</h3><br>
+                                    <div class="content">
+                                        <div class="form-group">
+                                            <label for="source">{{rides_detail.source}}</label><br>
+                                            <label for="source">↓</label><br>
+                                            <label for="destination">{{rides_detail.destination}}</label><br>
+                                        </div>
+                
+                                        <div class="form-group">
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 300px;padding: 10px 0;">
+                                                        <label>Price: ₹{{rides_detail.price}}</label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <a class="btn btn-primary" href="#close" style="margin-left: 2.5rem;">OK</a>
+                                            <a class="btn btn-success" href="{% url 'ride-payment' rides_detail.id %}">Payment</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}<br><br>
+
+            {% if queryset is None %}
+                <section>
+                    <div class="container">
+                        <div class="form-group">
+                            <h2 style="font-weight: bold;text-align: center;">Your future rides appear here!</h2>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        </form>
+    </div>
+
+{% endblock body %}
+
+

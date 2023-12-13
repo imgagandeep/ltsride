@@ -1,0 +1,54 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block paymentsactive %} active {% endblock paymentsactive %}
+{% block title %} Payments | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style1.css' %}">
+
+    <div class="container-fluid">
+        &nbsp;
+        <h1 style="font-weight: bold;">Payments</h1>
+        <hr style="border-top: 4px solid black">
+        {% for payment in payment_detail %}
+            <section style="min-height: 55vh;">
+                <div class="container" style="width: 700px;">
+                    <div class="form-group">
+                        <label for="pay">{{payment.transaction_by}} &nbsp; → &nbsp; {{payment.transaction_to}}</label><br>
+                    </div><br>
+
+                    <div class="form-group">
+                        <label for="source">{{payment.source}}</label><br>
+                        <label>↓</label><br>
+                        <label for="destination">{{payment.destination}}</label><br>
+                    </div><br>
+
+                    <div class="form-group">
+                        <table>
+                            <tr>
+                                <td style="width: 300px;padding: 10px 0;">
+                                    <label>Date: {{payment.transaction_on | date}}</label>
+                                </td>
+                                <td style="width: 300px;padding: 10px 0;">
+                                    <label>Price: ₹{{payment.amount}}</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        {% empty %}
+            <section>
+                <div class="container">
+                    <div class="form-group">
+                        <h2 style="font-weight: bold;text-align: center;">Your payments appear here!</h2>
+                    </div>
+                </div>
+            </section>
+        {% endfor %}
+    </div>
+
+{% endblock body %}
+
+

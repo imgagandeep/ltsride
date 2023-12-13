@@ -1,0 +1,75 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block findrideactive %} active {% endblock findrideactive %}
+{% block title %} Find Ride | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js?render={{recaptcha_site_key}}'></script>
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style2.css' %}">
+
+    <form action="/find-ride" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="user" value="{{user.first_name}}">
+        <section style="min-height: 90vh;">
+            <div class="container" style="width: 400px;float: left;">
+                <h2 style="font-weight: bold;text-align: center;">Find a Ride</h2>
+                <div class="form-group">
+                    <label for="source">Leaving from</label>
+                    <input type="text" class="form-control" id="source" name="source" placeholder="Leaving from" onblur="calcRoute();" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Going to</label>
+                    <input type="text" class="form-control" id="destination" name="destination" placeholder="Going to" onblur="calcRoute();" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Travelling date</label>
+                    <input type="date" class="form-control" id="date" name = "date" placeholder="mm/dd/yyyy" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" id="distance" class="form-control" name="distance" value="" readonly required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="calcRoute();" style="float: left;">Display Map</button>
+                    <button type="submit" class="btn btn-primary" onclick="calcRoute();">Search</button>
+                </div>
+            </div>
+            
+            <div class="container" style="width: 600px; float: right;">
+                <div id="google_map" style="height: 450px;"></div>
+            </div>
+        </section>
+    </form>
+    <!-- <div style="display: none;" id="output"></div> -->
+    
+    <script type="text/javascript">
+        var google_api_key = "{{google_api_key|safe}}";
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{google_api_key}}&libraries=places"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="Scripts/jquery-3.1.1.min.js"></script>
+    <script src="{% static 'js/map.js' %}"></script>
+    <script src="{% static 'js/future-date.js' %}"></script>
+
+{% endblock body %}
+
+
+
+
+

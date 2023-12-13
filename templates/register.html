@@ -1,0 +1,150 @@
+{% extends 'master_home.html' %}
+{% load static %}
+{% block registeractive %} active {% endblock registeractive %}
+{% block title %} Sign up | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <form action="register" method="POST">
+        {% csrf_token %}
+        <div class="container">
+            <h2 class="text-center my-3 py-3" style="font-weight: bold;">What's your details?</h2>
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td colspan="2">
+                        {% for message in messages %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 1px;"></button>
+                        </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="fname" class="form-label" style="font-size: 18px;font-weight: bold;">First Name or Username</label>
+                            <input type="fname" class="form-control" id="fname" name="first_name" placeholder="First Name or Username" required>
+                        </div>
+                    </td>
+
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="lname" class="form-label" style="font-size: 18px;font-weight: bold;">Last Name</label>
+                            <input type="lname" class="form-control" id="lname" name="last_name" placeholder="Last Name" required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <label for="gender" class="form-label" style="font-size: 18px;font-weight: bold;">Gender</label>
+                        <div class="mb-3" required>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                                <label class="form-check-label" for="male">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="female">
+                                <label class="form-check-label" for="female">Female</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="custom" value="custom">
+                                <label class="form-check-label" for="custom">Custom</label>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="dob" class="form-label" style="font-size: 18px;font-weight: bold;">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="date_of_birth" placeholder="mm/dd/yyyy" required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="email" class="form-label" style="font-size: 18px;font-weight: bold;">Email Address</label>
+                            <input type="email" class="form-control" id="email" pattern="[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" name="email" placeholder="name@domain.com" required>
+                        </div>
+                    </td>
+
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="number" class="form-label" style="font-size: 18px;font-weight: bold;">Mobile Number</label>
+                            <input type="tel" class="form-control" id="number" onkeypress="return onlyNumberKey(event)" minlength="10" maxlength="15" name="mobile_number" placeholder="+91XXXXXXXXXX" required>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="aadhar_number" class="form-label" style="font-size: 18px;font-weight: bold;">Aadhar Number</label>
+                            <input type="tel" class="form-control" id="aadhar_number" name="aadhar_number" onkeypress="return onlyNumbersKey(event)" placeholder="XXXXXXXXXXXX" required>
+                        </div>
+                    </td>
+
+                    <!-- <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label" style="font-size: 18px;font-weight: bold;">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" minlength="4" name="confirm_password" placeholder="Confirm Password" required>
+                        </div>
+                    </td> -->
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="password" class="form-label" style="font-size: 18px;font-weight: bold;">Password</label>
+                            <input type="password" class="form-control" id="password" minlength="4" name="password" placeholder="Password" required>
+                        </div>
+                    </td>
+
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label" style="font-size: 18px;font-weight: bold;">Confirm Password</label>
+                            <input type="password" class="form-control" id="confirm-password" minlength="4" name="confirm_password" placeholder="Confirm Password" required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;">
+                        <div class="mb-3">
+                            <label for="text" style="font-size: 18px;font-weight: bold;">Already a Member?&nbsp;</label><a href="/accounts/login/" style="font-size: 18px">Log In</a><br>
+                        </div>
+                    </td>
+                    <td style="width: 400px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 400px;" align="center" colspan="2">
+                        <button class="btn btn-primary" type="submit" style="padding: 10px 30px;font-size: 15px;">Sign Up</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <script src="{% static 'js/only-number.js' %}"></script>
+
+{% endblock body %}
+
+
+
+
+

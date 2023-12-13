@@ -1,0 +1,129 @@
+.titanic {
+    float: none;
+}
+
+.list-group-item.user.active {
+    color: white;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.username {
+    color: #337ab7;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.messages {
+    position: relative;
+    padding: 10px 10px 0 10px;
+    margin: 0 0 0 0;
+    height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.messages .message {
+    clear: both;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.messages .message.left .avatar {
+    background-color: white;
+    float: left;
+}
+
+
+.messages .message.left .text_wrapper {
+    background-color: #eee;
+    margin-left: 20px;
+}
+
+.messages .message.left .text_wrapper::after, .messages .message.left .text_wrapper::before {
+    right: 100%;
+    border-right-color: #eee;
+}
+
+.messages .message.left .text {
+    color: black;
+}
+
+.messages .message.right .avatar {
+    background-color: white;
+    float: right;
+}
+
+.messages .message.right .text_wrapper {
+    background-color: #eee;
+    margin-right: 20px;
+    float: right;
+}
+
+.messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
+    left: 100%;
+    border-left-color: #eee;
+}
+
+.messages .message.right .text {
+    color: black;
+}
+
+.messages .message .avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+    color: black;
+}
+
+.messages .message .text_wrapper {
+    display: inline-block;
+    padding: 20px;
+    border-radius: 6px;
+    width: calc(100% - 85px);
+    min-width: 100px;
+    position: relative;
+}
+
+.messages .message .text_wrapper::after, .messages .message .text_wrapper:before {
+    top: 18px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.messages .message .text_wrapper::after {
+    border-width: 13px;
+    margin-top: 0;
+}
+
+.messages .message .text_wrapper::before {
+    border-width: 15px;
+    margin-top: -2px;
+}
+
+.messages .message .text_wrapper .text {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+
+
+img {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    display: block;
+    border-radius: 20px;
+    height: 100%;
+}
+
+
+
+

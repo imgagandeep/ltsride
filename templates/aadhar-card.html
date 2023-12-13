@@ -1,0 +1,67 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block aadharcardactive %} active {% endblock aadharcardactive %}
+{% block title %} Verify Govt. ID | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <form action="{% url 'my-profile/govt-id/aadhar-card' pk=current_user.pk %}" method="POST", enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="user" value="{{user.first_name}}">
+        <div class="container"><br><br>
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td style="width: 600px;">
+                        <p><a href="/my-profile/govt-id" style="text-decoration: none;">
+                            <img src="{% static 'images/previous.png' %}" alt="back" width="20px" height="20px">
+                        </a>Back</p>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2 style="font-weight: bold;text-align: center;">Front of card</h2><br>
+            &nbsp;
+            &nbsp;
+            <h3 style="text-align: center;">Upload a photo of your aadhar card</h3>
+            <table align="center" cellpadding="10" style="width: 800px;">
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td style="width: 600px;">
+                        <div class="form-group">
+                            <label for="aadhar-image" class="form-label" style="font-size: 18px;font-weight: bold;"></label>
+                            <input type="file" class="form-control" id="aadhar-image" accept="image/png,image/gif,image/jpeg" name = "aadhar_image" required>
+                        </div>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 100px;"></td>
+                    <td align="center">
+                        <button class="btn btn-primary" type="submit" style="padding: 10px 30px;font-size: 15px;">Submit</button>
+                    </td>
+                    <td style="width: 100px;"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+{% endblock body %}
+
+
+
+

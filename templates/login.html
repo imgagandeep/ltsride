@@ -1,0 +1,59 @@
+{% extends 'master_home.html' %}
+{% load static %}
+{% block loginactive %} active {% endblock loginactive %}
+{% block title %} Log in | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style2.css' %}">
+
+    <div class="contact-back flex items-center">
+        <form action="/accounts/login/" method="POST">
+            {% csrf_token %}
+            <section style="min-height: 90vh;">
+                <div class="container" style="width: 600px;">
+                    <h2 class="text-center my-3 py-3" style="font-weight: bold;">What's your email and password?</h2>
+                    <div class="form-group">
+                        {% for message in messages %}
+                            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="margin-top: 1px;"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" pattern="[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$" name = "email" placeholder="name@domain.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" minlength="4" name = "password" placeholder="Password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <a href="{% url 'password_reset' %}" style="font-size: 18px">Forgot Password</a><br>
+                        <label for="text" style="font-size: 18px;font-weight: bold;">Not a Member yet?&nbsp;</label><a href="/register" style="font-size: 18px">Sign Up</a><br>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Log In</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+{% endblock body %}
+
+

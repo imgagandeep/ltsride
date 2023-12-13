@@ -1,0 +1,124 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block myprofileactive %} active {% endblock myprofileactive %}
+{% block title %} My Profile | LTSRide {% endblock title %}
+
+{% block body %}
+
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+
+    <div class="wrapper">
+        <!-- Title -->
+        <div class="wrapper_top container"><br><br>
+            <table align="center" style="width: 100%">
+                <tr>
+                    <td data-td="about" style="width: 40%;text-align: right;font-weight:bold;font-size: 24px;">
+                        <p style="font-weight: bold;color: cadetblue;cursor: pointer;">About you</p>
+                    </td>
+                    <td style="width: 5%;"></td>
+                    <td data-td="account" style="width: 40%;text-align: left;font-weight:bold;font-size: 24px;">
+                        <p style="font-weight: bold;color: cadetblue;cursor: pointer;">Account</p>
+                    </td>
+                </tr>
+            </table>
+            <hr style="border-top: 4px solid black">
+        </div>
+
+        <div class="wrapper_top">
+            <div class="container">
+                
+                <!-- About us -->
+                <div class="item about">
+                    <table align="center" cellpadding="10" style="width: 100%;">
+                        <tr>
+                            <td style="width: 30%;text-align: right;">
+                                {% if other_detail.user_image %}
+                                    <img src="/media/{{other_detail.user_image}}" alt="User Image" style="border-radius: 50%;" width="150" height="150">
+                                {% else %}
+                                    <img src="{% static 'images/user-image.png' %}" alt="User Image" style="border-radius: 50%;" width="150" height="150">
+                                {% endif %}
+                            </td>
+                            <td class="align-top" style="width: 40%;">
+                                <h2 style="font-weight: bold;text-align: left;color: rgb(5, 71, 82);">
+                                    {% if user.is_authenticated %}
+                                        Hello, {{user.first_name}}
+                                    {% endif %}
+                                </h2>
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <table align="center" cellpadding="10" style="width: 100%;">
+                        <tr>
+                            <td style="width: 28%;"></td>
+                            <td style="width: 30%;text-align: left;">
+                                <a href="{% url 'my-profile/bio' pk=current_user.pk %}" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Add a mini bio</a><br>
+                                <a href="my-profile/govt-id" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Verify your Govt. ID</a><br>
+                                <a href="{% url 'my-profile/personal-detail' pk=current_user.pk %}" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Edit personal details</a><br>
+                            </td>
+                            <td style="width: 42%;"></td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <!-- Account -->
+                <div class="item account" style="display: none;">    
+                    <table align="center" cellpadding="10" style="width: 100%;">
+                        <tr>
+                            <td style="width: 28%;"></td>
+                            <td style="width: 30%;text-align: left;">
+                                <!-- <a href="/ratings" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Ratings given</a><br> -->
+                                <a href="/notifications" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Emails & SMS</a><br>
+                                <a href="/change-password" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Password</a><br>
+                                <a href="/logout" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Log out</a><br>
+                                <a href="{% url 'delete-account' pk=current_user.pk %}" style="text-decoration: none;color: rgb(5, 71, 82);font-weight: bold;font-size: 20px;">Close my account</a><br>
+                            </td>
+                            <td style="width: 42%;"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hide & Show Toggle Script -->
+    <script>
+        var td_elements = document.querySelectorAll(".wrapper_top table td");
+        var item_elements = document.querySelectorAll(".item");
+        for (var i = 0; i < td_elements.length; i++) {
+        td_elements[i].addEventListener("click", function() {
+            td_elements.forEach(function(td) {
+                td.classList.remove("active");
+            });
+            this.classList.add("active");
+            var td_value = this.getAttribute("data-td");
+            item_elements.forEach(function(item) {
+                item.style.display = "none";
+            });
+            if (td_value == "about") {
+                document.querySelector("." + td_value).style.display = "block";
+            }
+            else if (td_value == "account") {
+                document.querySelector("." + td_value).style.display = "block";
+            }
+            else {
+                console.log("");
+            }
+        });
+        }
+    </script>
+
+{% endblock body %}
+
+
+
+
+

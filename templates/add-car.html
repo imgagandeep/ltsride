@@ -1,0 +1,199 @@
+{% extends 'master_dashboard.html' %}
+{% load static %}
+{% block addcaractive %} active {% endblock addcaractive %}
+{% block title %} Add Car | LTSRide {% endblock title %}
+
+{% block body %}
+    <style>
+        body  {
+            background-image: url("{% static 'images/world.png' %}");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/box-style2.css' %}">
+
+    <div class="contact-back flex items-center">
+        <form action="{% url 'dashboard/add-car' pk=user_detail.pk %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{user.first_name}}">
+            <section style="min-height: 120vh;">
+                <div class="container" style="width: 500px;">
+                    <h2 class="text-center my-3 py-3" style="font-weight: bold;">Car details</h2>
+                    <div class="form-group">
+                        <label for="country" class="form-label" style="font-size: 18px;font-weight: bold;">Country</label>
+                        <select class="form-select form-control" id="country" name="country" required>
+                            {% if car_details.country == "Australia" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia" selected>Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "Canada" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada" selected>Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "France" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France" selected>France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "Germany" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany" selected>Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "India" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India" selected>India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "Italy" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy" selected>Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "New Zealand" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand" selected>New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "Spain" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain" selected>Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "United Kingdom" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom" selected>United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% elif car_details.country == "United States America" %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America" selected>United States America</option>
+                            {% else %}
+                                <option value="">- Select your country..</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Canada">Canada</option>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="India">India</option>
+                                <option value="Italy">Italy</option>
+                                <option value="New Zealand">New Zealand</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="United States America">United States America</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="plate-number" class="form-label" style="font-size: 18px;font-weight: bold;">Licence Plate Number</label>
+                        <input type="text" class="form-control" id="plate-number" value="{{car_details.licence_plate_number}}" name = "plate_number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brand" class="form-label" style="font-size: 18px;font-weight: bold;">Brand</label>
+                        <input type="text" class="form-control" id="brand" value="{{car_details.brand}}" name = "brand" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="model" class="form-label" style="font-size: 18px;font-weight: bold;">Model</label>
+                        <input type="text" class="form-control" id="model" value="{{car_details.model}}" name = "model" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="car-image" class="form-label" style="font-size: 18px;font-weight: bold;">Upload car picture</label>
+                        <input type="file" class="form-control" id="car-image" accept="image/png,image/gif,image/jpeg" name = "car_image" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit" style="padding: 10px 30px;font-size: 15px;">Save</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </div>
+
+{% endblock body %}
+
+
+
+
+
+
+
